@@ -57,6 +57,10 @@ export const router = createBrowserRouter([
           path: '/dashboard/managedoctors',
           element : <ManageDoctors></ManageDoctors>
         },
+        {
+          path: '/dashboard/dashboard',
+          element : <MyAppointment></MyAppointment>
+        },
       ]
   }
 ])
