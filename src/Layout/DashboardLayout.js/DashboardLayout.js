@@ -24,11 +24,15 @@ const [isAdmin] = useAdmin(user?.email)
      
   
     
-      <>
+      {
+        isAdmin &&
+         
+        <>
        <li><Link to="/dashboard/alluser">All USer</Link></li>
        <li><Link to="/dashboard/adddoctor">Add a doctor</Link></li>
        <li><Link to="/dashboard/managedoctors">Manage Doctors</Link></li>
       </>
+      }
    
      
      

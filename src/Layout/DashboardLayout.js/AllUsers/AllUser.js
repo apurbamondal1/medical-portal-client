@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 
 
 const AllUser = () => {
-   const {data: users= [] , refetch} = useQuery({
+   const {data: users= [],refetch } = useQuery({
     queryKey: ['users'],
     queryFn: async()=>{
         const res = await fetch('http://localhost:5000/users');
@@ -29,6 +29,7 @@ const AllUser = () => {
         toast.success ('make admin Successful')
         refetch();
        }
+      
     })
    }
     return (
@@ -54,6 +55,7 @@ const AllUser = () => {
             <th>{i+1}</th>
             <td>{user.name}</td>
             <td>{user.email}</td>
+          
             <td>{ user?.role !== 'admin' && <button onClick={() =>handleMakeAdmin(user._id)} className='btn btn-xs btn-primary'>Make Admin</button>}</td>
             <td><button className='btn btn-xs btn-danger'>Delete</button></td>
           </tr>)

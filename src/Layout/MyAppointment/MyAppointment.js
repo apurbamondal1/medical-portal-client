@@ -1,8 +1,7 @@
-// import { async } from '@firebase/util';
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-// import BookingModal from '../../Appointment/BookingModal/BookingModal';
 import { AuthContext } from '../../Context/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const MyAppointment = () => {
     const {user} = useContext(AuthContext);
@@ -12,12 +11,12 @@ const {data : bookings = []}= useQuery({
     queryKey: ['bookings', user?.email],
     queryFn: async() =>{
 
-        const res = await fetch(url);
-          // , {
-        //   headers: {
-        //     authorization: `bearer ${localStorage.getItem('accessToken')}`
-        //   }
-        // });
+        // const res = await fetch(url);
+        const res = await fetch(url, {
+          headers: {
+            authorization: `bearer ${localStorage.getItem('accessToken')}`
+          }
+        });
     
 
 
@@ -41,19 +40,10 @@ console.log(bookings)
         <th>Treatment</th>
         <th>Date</th>
         <th>Time</th>
+        <th>Price</th>
       </tr>
     </thead>
     <tbody>
-      
-      {/* <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-        <td>Blue</td>
-      </tr> */}
-      
-      
     </tbody>
     { 
         bookings?.map((booking, i) =>  <tr key={booking._id}>
@@ -62,6 +52,15 @@ console.log(bookings)
             <td>{booking.treatment}</td>
             <td>{booking.appointmentDate}</td>
             <td>{booking.slot}</td>
+            {
+              booking.price && !booking.paid && <Link to={`/dashboard/payment/${booking._id}`}>
+              <button className='btn btn-primary btn-small'>
+                pay
+              </button></Link>
+            }
+            {
+              booking.price && booking.paid && <span className='text-primary'>paid</span>
+            }
           </tr>)
     }
   </table>
